@@ -1,0 +1,71 @@
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react'
+import axios from 'axios'
+
+function SignUp() {
+
+  const navigate = useNavigate()
+
+  const [username,setUsername] = useState('')
+  const [password,setPassword] = useState('')
+  const [repassword,setRepassword] = useState('')
+  const [pincode, setPincode] = useState('')
+
+  const handleSubmit = async (e) => {
+    try{
+        e.preventDefault()
+        if(password!==repassword)
+        {
+          alert('Passwords do not match')
+          return
+        }
+        if(password.length < 6)
+        {
+          alert('Password must be atleast 6 characters')
+          return
+        }
+        const data = {username,password, pincode}
+        console.log(data)
+        const response = await axios.post('/signup', data);
+        if(response.status===200)
+        {
+            navigate('/login')
+        }
+        else{
+            throw new Error('sign up unsuccessful')
+        }
+    }catch(error){
+        alert(error.response.data)
+    }
+  }
+
+  function handleNavigate() {
+	navigate("/login")
+  }
+
+  return (
+    <div className="responsive-container signup-form">
+		{/* <BackButton /> */}
+
+		<h1 className="h2-sizing gradient-text">Sign up</h1>
+
+        <form onSubmit={handleSubmit} className="signup-form__form">
+
+            <input required type="text" placeholder="username" onChange={(e)=>setUsername(e.target.value)}></input>
+
+            <input required type="password" placeholder="password" onChange={(e)=>setPassword(e.target.value)}></input>
+
+            <input required type="password" placeholder='re-enter password'onChange={(e)=>setRepassword(e.target.value)}></input>
+
+            <input required type="number" placeholder="pincode" onChange={(e)=>setPincode(e.target.value)}></input>
+
+			<a onClick={handleNavigate} className="blue-text-link">Already have an account? Log in</a>
+
+            <button className="gradient-button" type='submit'>Signup</button>
+        </form>
+    </div>
+  )
+}
+
+export default SignUp

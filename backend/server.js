@@ -6,11 +6,14 @@ const jwt = require('jsonwebtoken');
 const axios = require('axios')
 require('dotenv').config()
 
+const {signup, login} = require('./routers/userRouter')
+
 //const cors = require('cors');
 
 const app = express()
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(cookieParser())
+//app.use(cors());
 mongoose.connect(process.env.MONGOURL)
 
 //app.get('/', (req, res) => res.send("hello, world!"))
@@ -27,17 +30,16 @@ const verifyToken = (req, res, next) => {
         }
         req.userId = decoded.userId;
         next();
-    })
-}
-
+    });
+};
 app.get('/checkjwt',verifyToken,(req,res)=>{ //Used for client side authentication
     res.status(200).send()
 })
 
 app.post('/signup',async (req,res)=>{
     try{
-        const { username, password } = req.body;
-        await signup(username, password);
+        const { username, password, pincode } = req.body;
+        await signup(username, password, pincode);
         res.status(200).send('Signup successful');
     }
     catch(e)
@@ -62,8 +64,7 @@ app.post('/login', async (req, res) => {
     } catch (e) {
         res.status(400).send(e.message);
     }
-})
-
+});
 app.post('/logout',(req,res)=>{
     res.clearCookie('jwtToken', { path: '/' });
     res.status(200).send()
