@@ -7,11 +7,12 @@ const getNeighbours = async(userId, range) => {
         throw new Error('User not found')
     }
     const userPincode = user.pincode
+    const searchRange = parseInt(range)
     const neighbours = await User.find({
         $and: [
-            { pincode: { $ne: userPincode } },
-            { pincode: { $gte: userPincode - range } },
-            { pincode: { $lte: userPincode + range } }
+            { _id: { $ne: userId } },
+            { pincode: { $gte: userPincode - searchRange } },
+            { pincode: { $lte: userPincode + searchRange } }
         ]
     })
 

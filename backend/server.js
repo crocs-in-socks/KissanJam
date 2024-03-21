@@ -35,7 +35,6 @@ const verifyToken = (req, res, next) => {
 app.get('/getneighbours', verifyToken, async(req, res) => {
     const userId = req.userId
     const range = req.query.range
-    console.log(req.query)
     try {
         users = await getNeighbours(userId, range)
         res.json(users)
