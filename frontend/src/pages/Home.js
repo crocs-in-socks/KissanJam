@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 
 function Home() {
+
+    const [neighbours, setNeighbours] = useState([])
+    const [range, setRange] = useState(10)
 
     const navigate = useNavigate()
     const handleLogout = async () => {
@@ -18,10 +21,44 @@ function Home() {
         }
     }
 
+    const handleRangeIncrease = async() => {
+        const newRange = range + 2
+        setRange(newRange)
+    }
+
+    const handleRangeDecrease = async() => {
+        const newRange = range - 2
+        setRange(newRange)
+    }
+
+    const fetchNeighbours = async(range)=>{
+        try {
+            console.log(range)
+            const response = await axios.get('/getneighbours', { params: { range: range } })
+            if (response.status === 200) {
+                console.log(response.data)
+                setNeighbours(response.data)
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(()=>{
+        fetchNeighbours(range)
+    },[range])
+
     return (
         <div>
-            Home
-            <a className="logout-button" onClick={handleLogout}>Logout</a>
+            <div>
+                <button className="logout-button" onClick={handleLogout}>Logout</button>
+            </div>
+            <div>Home page, Hot Farmers near you</div>
+            <button onClick={handleRangeIncrease}>Increase range</button>
+            <button onClick={handleRangeDecrease}>Decrease range</button>
+            <ul>
+                {neighbours.map(item => (<li key={item._id}>{item.username}</li>))}
+            </ul>
         </div>
   )
 }
