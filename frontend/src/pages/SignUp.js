@@ -3,6 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import axios from 'axios'
 
+import Photo from "../photos/FARMER IMAGE.png"
+import Photo1 from "../photos/Background.jpeg"
+
+import BackButton from "../components/BackButton.js"
+import "../styles/Signup.css"
+
 function SignUp() {
 
   const navigate = useNavigate()
@@ -45,25 +51,29 @@ function SignUp() {
   }
 
   return (
-    <div className="responsive-container signup-form">
+    <div>
 		{/* <BackButton /> */}
-
+    <img src={Photo} alt="Image" class="login-image"/>
 		<h1 className="h2-sizing gradient-text">Sign up</h1>
 
-        <form onSubmit={handleSubmit} className="signup-form__form">
+        
+    <form onSubmit={handleSubmit} class="signup-form__form">
 
-            <input required type="text" placeholder="username" onChange={(e)=>setUsername(e.target.value)}></input>
+    <input required type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} class="signup-input"></input>
 
-            <input required type="password" placeholder="password" onChange={(e)=>setPassword(e.target.value)}></input>
+    <input required type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} class="signup-input"></input>
 
-            <input required type="password" placeholder='re-enter password'onChange={(e)=>setRepassword(e.target.value)}></input>
+    <input required type="password" placeholder="Re-enter password" onChange={(e) => setRepassword(e.target.value)} class="signup-input"></input>
 
-            <input required type="number" placeholder="pincode" onChange={(e)=>setPincode(e.target.value)}></input>
+    <input required type="number" placeholder="Pincode" onChange={(e) => setPincode(e.target.value)} class="signup-input"></input>
 
-			<a onClick={handleNavigate} className="blue-text-link">Already have an account? Log in</a>
+    <a onClick={handleNavigate} class="blue-text-link">Already have an account? Log in</a>
 
-            <button className="gradient-button" type='submit'>Signup</button>
-        </form>
+    <button type="submit" class="gradient-button">Signup</button>
+
+</form>
+
+
     </div>
   )
 }

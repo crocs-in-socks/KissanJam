@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 import Photo from "../photos/FARMER IMAGE.png"
-import Photo1 from "../photos/Background.jpeg"
+import Photo1 from "../photos/backgroungImageFinal.jpeg"
 
 import BackButton from "../components/BackButton.js"
 import "../styles/Login.css"
