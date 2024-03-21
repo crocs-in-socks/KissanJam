@@ -53,6 +53,8 @@ function SignUp() {
   return (
     <div>
 		{/* <BackButton /> */}
+    
+    <div class="bracket">
     <img src={Photo} alt="Image" class="login-image"/>
 		<h1 className="h2-sizing gradient-text">Sign up</h1>
 
@@ -70,9 +72,9 @@ function SignUp() {
     <a onClick={handleNavigate} class="blue-text-link">Already have an account? Log in</a>
 
     <button type="submit" class="gradient-button">Signup</button>
-
+    
 </form>
-
+</div>
 
     </div>
   )

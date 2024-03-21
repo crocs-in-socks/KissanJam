@@ -79,6 +79,11 @@ body {
   cursor: pointer;
 }
 
-.gradient-button {
+.gradient-button:hover {
   background-color: #0056b3;
+}
+
+.bracket {
+  width: 50%;
+  margin-left: 26%;
 }
